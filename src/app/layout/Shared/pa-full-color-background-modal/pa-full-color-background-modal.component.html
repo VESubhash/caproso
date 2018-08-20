@@ -1,0 +1,10 @@
+<div *ngIf="isShown">
+  <div [ngClass]="'modal-overlay-' + overlayColor"></div>
+  <div class="modal-container">
+
+    <div class="modal">
+      <ng-content select="[content]"></ng-content>
+    </div>
+  </div>
+</div>
+

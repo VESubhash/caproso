@@ -1,0 +1,83 @@
+
+<h5>Create</h5>
+<hr>
+
+<form [formGroup]="estimateCreateForm" (ngSubmit)="onSubmit(estimateCreateForm.value)">
+<div class="row">
+    <div class="col-md-12">
+        <div class="form-group">
+            <label> Estimate Title</label>
+            <input class="form-control" formControlName='EstimateTitle' class="form-control" maxlength="100"
+                   [ngClass]="{ 'is-invalid': submitted && f.EstimateTitle.errors }"/>
+
+            <div *ngIf="submitted && f.EstimateTitle.errors" class="invalid-feedback">
+                <div *ngIf="f.EstimateTitle.errors.required">Title is required</div>
+                <div *ngIf="f.EstimateTitle.errors?.maxlength">  Title can be max 100 characters long.</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label> Group</label>
+            <select class="form-control" formControlName='EstimateGroupId' class="form-control"
+                    [ngClass]="{ 'is-invalid': submitted && f.EstimateGroupId.errors }">
+                <option value="">Please select</option>
+                <option *ngFor="let group of groupsModel" [ngValue]="group.LTagId">{{group.TagDescr}}</option>
+            </select>
+            <div *ngIf="submitted && f.EstimateGroupId.errors" class="invalid-feedback">
+                <div *ngIf="f.EstimateGroupId.errors.required">Group is required</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label> Estimate Number</label>
+            <input class="form-control" formControlName='EstimateNumber' class="form-control" maxlength="20"
+                   [ngClass]="{ 'is-invalid': submitted && f.EstimateNumber.errors }"/>
+
+            <div *ngIf="submitted && f.EstimateNumber.errors" class="invalid-feedback">
+                <div *ngIf="f.EstimateNumber.errors.required">Number is required</div>
+                <div *ngIf="f.EstimateNumber.errors?.maxlength">  Number can be max 20 characters long.</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label> Project Scope</label>
+            <textarea class="form-control" formControlName='ProjectScope' class="form-control" maxlength="1000"
+                   [ngClass]="{ 'is-invalid': submitted && f.ProjectScope.errors }"></textarea>
+
+            <div *ngIf="submitted && f.ProjectScope.errors" class="invalid-feedback">
+                <div *ngIf="f.ProjectScope.errors.required">Project scope is required</div>
+                <div *ngIf="f.ProjectScope.errors?.maxlength">  Project scope can be max 1000 characters long.</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label> Assumptions</label>
+            <textarea class="form-control" formControlName='Assumptions' class="form-control" maxlength="500"
+                      [ngClass]="{ 'is-invalid': submitted && f.Assumptions.errors }"></textarea>
+
+            <div *ngIf="submitted && f.Assumptions.errors" class="invalid-feedback">
+                <div *ngIf="f.Assumptions.errors.required">Assumptions is required</div>
+                <div *ngIf="f.Assumptions.errors?.maxlength">  Assumptions can be max 500 characters long.</div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label> Project Manager</label>
+            <input class="form-control" formControlName='ManagerName' class="form-control" maxlength="100"
+                   [ngClass]="{ 'is-invalid': submitted && f.ManagerName.errors }"/>
+            <!--<select class="form-control" formControlName='ManagerId' class="form-control"-->
+
+                    <!--[ngClass]="{ 'is-invalid': submitted && f.ManagerId.errors }">-->
+                <!--<option value="">Please select</option>-->
+                <!--<option *ngFor="let role of managerModel" [ngValue]="role.LTagId">{{role.TagDescr}}</option>-->
+            <!--</select>-->
+            <!--<div *ngIf="submitted && f.ManagerName.errors" class="invalid-feedback">-->
+                <!--<div *ngIf="f.ManagerName.errors.required">Project Manager is required</div>-->
+            <!--</div>-->
+        </div>
+    </div>
+
+</div>
+    <div class="form-group">
+        <button [disabled]="loading" class="btn btn-primary">{{btnName}} <i class="fa fa-long-arrow-right"></i></button>
+        <img *ngIf="loading"
+             src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="/>
+        <a  (click)="goToManageEstimates()"  class="btn btn-link">Cancel</a>
+    </div>
+</form>

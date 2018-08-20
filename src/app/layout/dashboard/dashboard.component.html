@@ -1,0 +1,130 @@
+<div [@routerTransition]>
+    <div class="list-group" *ngIf="roleName=='Admin'">
+
+        <h4>
+            Welcome {{ userName}}
+        </h4>
+        <h2 class="text-muted">Dashboard
+            <small>Statistics Overview</small>
+        </h2>
+
+        <div class="row">
+            <div class="col-xl-3 col-lg-6">
+                <app-stat [bgClass]="'primary'" [icon]="'fa-comments'" [count]="26"
+                          [label]="'No of Affiliate Register'"></app-stat>
+            </div>
+            <div class="col-xl-3 col-lg-6">
+                <app-stat [bgClass]="'warning'" [icon]="'fa-tasks'" [count]="12"
+                          [label]="'No. of Client Admin Register'"></app-stat>
+            </div>
+            <div class="col-xl-3 col-lg-6">
+                <app-stat [bgClass]="'success'" [icon]="'fa-shopping-cart'" [count]="124"
+                          [label]="'User Registered'"></app-stat>
+            </div>
+            <div class="col-xl-3 col-lg-6">
+                <app-stat [bgClass]="'danger'" [icon]="'fa-support'" [count]="13" [label]="'Last Estimate'"></app-stat>
+            </div>
+        </div>
+    </div>
+
+    <div class="list-group" *ngIf="roleName=='Affiliate'">
+        <h4>
+            Welcome {{ userName}}
+        </h4>
+
+        <h2 class="text-muted">Dashboard
+            <small>Statistics Overview</small>
+        </h2>
+        <div class="row">
+
+            <div class="col-xl-3 col-lg-6">
+                <app-stat [bgClass]="'warning'" [icon]="'fa-tasks'" [count]="12"
+                          [label]="'No. of Client Admin Register'"></app-stat>
+            </div>
+            <div class="col-xl-3 col-lg-6">
+                <app-stat [bgClass]="'success'" [icon]="'fa-shopping-cart'" [count]="124"
+                          [label]="'User Registered'"></app-stat>
+            </div>
+            <div class="col-xl-3 col-lg-6">
+                <app-stat [bgClass]="'danger'" [icon]="'fa-support'" [count]="13" [label]="'Last Estimate'"></app-stat>
+            </div>
+        </div>
+    </div>
+
+    <div class="list-group" *ngIf="roleName=='Client Admin'">
+        <h4>
+            Welcome {{ userName}}
+        </h4>
+        <br>
+        <br>
+        <br>
+        <div class="row">
+            <div class="col-md-12">
+                Your channel :<span class="text-primary">   {{affiliateName}} </span> -> <span class="text-success"> {{organizationName}}</span>
+            </div>
+        </div>
+        <br>
+        <br>
+        <br>
+        <h2 class="text-muted">Dashboard
+            <small>Statistics Overview</small>
+        </h2>
+        <div class="row">
+        <div class="large-4 columns nopadding stats-card parent-nos">
+            <div class="large-6 columns nopadding lg-nos">
+                <a [routerLink]="['/manage-clients']" [routerLinkActive]="['router-link-active']" ><div class="new-task">4</div> <span>No. of User Registered</span></a>
+
+            </div>
+        </div>
+
+        <div class="large-4 columns nopadding stats-card parent-nos">
+
+            <div class="large-6 columns nopadding lg-nos lg-nos-gr">
+                <a [routerLink]="['/manage-estimates']" [routerLinkActive]="['router-link-active']" ><div class="new-doc">2</div><span>Last Estimate</span></a>
+
+            </div>
+        </div>
+        </div>
+        <!--<div class="row">-->
+
+            <!--<div class="col-xl-3 col-lg-6">-->
+                <!--<app-stat [bgClass]="'success'" [icon]="'fa-shopping-cart'" [count]="124"-->
+                          <!--[label]="'User Registered'"></app-stat>-->
+            <!--</div>-->
+            <!--<div class="col-xl-3 col-lg-6">-->
+                <!--<app-stat [bgClass]="'danger'" [icon]="'fa-support'" [count]="13" [label]="'Last Estimate'"></app-stat>-->
+            <!--</div>-->
+        <!--</div>-->
+    </div>
+
+    <div class="list-group" *ngIf="roleName=='Client'">
+        <h4>
+            Welcome {{ userName}}
+        </h4>
+        <br>
+        <br>
+        <br>
+        <div class="row">
+            <div class="col-md-12">
+                Your channel :<span class="text-primary">   {{affiliateName}} </span> -> <span class="text-info"> {{userName}} </span>
+            </div>
+        </div>
+
+        <br>
+        <br>
+        <br>
+
+
+        <h2 class="text-muted">Dashboard
+            <small>Statistics Overview</small>
+        </h2>
+        <div class="row">
+            <div class="col-xl-3 col-lg-6">
+                <app-stat [bgClass]="'danger'" [icon]="'fa-support'" [count]="13" [label]="'Last Estimate'"></app-stat>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

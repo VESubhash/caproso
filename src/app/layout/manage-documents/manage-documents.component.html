@@ -1,0 +1,53 @@
+<div class="col-lg-12">
+    <div class="row">
+        <div class="col-lg-12">
+            <h3 class="one">Manage document of {{organization}}</h3>
+
+        </div>
+    </div>
+
+    <div>
+        <button  (click)="goToManageItems()" class="btn btn-secondary btn-space float-right">Back</button>
+        <button class="btn btn-primary btn-space float-right" (click)="addDocument(organizationId)" >Add Document</button>
+
+        <div class="card-body table-responsive">
+
+            <table datatable [dtOptions]="dtOptions" class="table table-bordered address-table display">
+                <thead>
+                <tr>
+                    <th>Document Name</th>
+                    <th>Document </th>
+                    <th>Active</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let document of documents; let odd=odd; let even=even" [ngClass]="{ odd: odd, even:even}">
+
+                    <td>{{ document.DocCaption }}</td>
+                    <td>{{ document.DocPath }}</td>
+                    <td>
+
+                        <div class="dropdown">
+                            <button class="dropbtn"
+                                    [ngClass]="{'bg-success': document.IsActive.toString().toLowerCase() === 'true', 'bg-danger': document.IsActive.toString().toLowerCase() === 'false' }">
+                                {{document.IsActive.toString().toLowerCase() === 'true'? 'Active': 'InActive'}}
+                            </button>
+                            <div class="dropdown-content">
+                                <a (click)="onStatusChange(document,true)">Active</a>
+                                <a (click)="onStatusChange(document,false)">InActive</a>
+                            </div>
+                        </div>
+                    </td>
+                    <td><button class="btn-space" (click)="goToDocumentDetail(document)"> <i class="fa fa-pencil"></i></button> <button btn-space><i class="fa fa-trash"></i> </button> </td>
+
+                </tr>
+
+                <tr *ngIf="tags?.length == 0">
+                    <td colspan="3" class="no-data-available">No data!</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

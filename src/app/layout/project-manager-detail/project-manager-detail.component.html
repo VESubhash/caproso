@@ -1,0 +1,29 @@
+<h2>Project Manager Detail</h2>
+<br/>
+<hr>
+<form [formGroup]="groupForm" (ngSubmit)="onSubmit(groupForm.value)">
+<div class="row">
+    <div class="col-md-12">
+        <div class="form-group">
+            <label> Project Manager Name</label>
+            <input class="form-control" formControlName='TagDescr' class="form-control"
+                   [ngClass]="{ 'is-invalid': submitted && f.TagDescr.errors }"/>
+
+            <div *ngIf="submitted && f.TagDescr.errors" class="invalid-feedback">
+                <div *ngIf="f.TagDescr.errors.required">Name is required</div>
+            </div>
+        </div>
+    </div>
+
+</div>
+    <div class="form-group">
+        <input type="hidden" class="form-control" formControlName='OrganizationId' class="form-control" />
+        <input type="hidden" class="form-control" formControlName='LTagsId' class="form-control" />
+        <input type="hidden" class="form-control" formControlName='LTagType' class="form-control" />
+
+        <button [disabled]="loading" class="btn btn-primary">{{btnName}}</button>
+        <img *ngIf="loading"
+             src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="/>
+        <a onclick="window.history.back();" class="btn btn-link">Cancel</a>
+    </div>
+</form>

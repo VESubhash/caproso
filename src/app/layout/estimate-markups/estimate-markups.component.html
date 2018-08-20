@@ -1,0 +1,72 @@
+<h5>Markups and Adjustments</h5>
+<hr>
+<estimate-data></estimate-data>
+<hr>
+    <markup-detail [dialogName]="'markupDetailDialog'"  estimateId="estimateId" [displayOrder]="displayOrder" [parentMarkupId]="parentMarkupId" [markupName]="markupName" [estimateMarkupsModel]="estimateMarkupsModel" [markupSubTotal]="constructionTotal"></markup-detail>
+<div class="text-right"><button type="button" class="btn btn-primary  btn-space" (click)="showDetailDialog('Other Construction')"> Add Other Construction </button>
+                        <button type="button" class="btn btn-primary " (click)="showDetailDialog('Other Project Cost')"> Add Other Project Cost </button>
+</div>
+<br/>
+    <table class="table table-bordered display table-body">
+
+        <tr *ngFor="let markup of estimatemarkups; let odd=odd; let even=even" [ngClass]="{ odd: odd, even:even}">
+
+            <td><div [ngClass]=" {'bold-text': markup.MarkupType ==='Single'}">
+
+                {{markup.MarkupName}}
+
+            </div>
+                <div *ngIf="markup.MarkupName !='Years - Midpoint Construction' && (markup.MarkupType =='Fixed' || markup.MarkupType =='Other Construction' || markup.MarkupType =='Other Project Cost')">
+                    <label *ngFor="let adjustmentType of adjustmentTypeModel">
+                        <input type="radio"  [name]="markup.MarkupId"  (change)="onAdjustmentTypeChange(markup, adjustmentType)"
+                               [checked]="adjustmentType.LAdjustmentTypeId == markup.LAdjustmentTypeId"
+                              [value]="adjustmentType.LAdjustmentTypeId" >
+                        {{adjustmentType.AdjustmentType}}
+                    </label>
+                </div>
+                <div  *ngIf="markup.MarkupType ==='Multiple'">
+                    <button type="button" class="btn btn-primary" (click)="showMarkupDetailDialog(markup)"> Add</button>
+                </div>
+            </td>
+            <td>
+                <div class="row col-md-12">
+                    <div *ngIf="markup.MarkupType !=='Single' && markup.AdjustmentType=='$'" >
+                        <input class="form-control" name='AdjustmentValue' [(ngModel)]="markup.AdjustmentValue" currencyMask [options]="{ align:'left' }" (blur)="onAmountChange(markup)"
+                               [ngClass]="{ 'is-invalid': submitted && f.AdjustmentValue.errors }"/>
+                    </div>
+                    <div *ngIf="markup.MarkupType !=='Single' && markup.AdjustmentType=='%'" >
+                        <input class="form-control" name='AdjustmentValue' [(ngModel)]="markup.AdjustmentValue" (change)="onAmountChange(markup)"
+                               [ngClass]="{ 'is-invalid': submitted && f.AdjustmentValue.errors }"/>
+                    </div>
+                    <div *ngIf="markup.MarkupType === 'Fixed Single'">
+                        <label class="form-control label-disabled text-right"> % </label>
+                    </div>
+                </div>
+
+            </td>
+            <td>
+
+                <div *ngIf="markup.MarkupType != 'Fixed Single'">
+                    <label class="form-control label-disabled text-right"> {{ markup.AdjustmentTotal |
+                        currency:'USD':true:'1.2-2'}} </label>
+                </div>
+            </td>
+            <td class="action-btn">
+               <div  *ngIf="markup.MarkupType =='Other Construction' || markup.MarkupType =='Other Project Cost'" >
+                   <div class="float-left">
+                           <i class="fa fa-pencil" title="edit item"  (click)="showEditMarkupDetailDialog(markup.MarkupType ==='Other Construction' ?'Other Construction':'Other Project Cost',markup.MarkupId)"></i>
+                   </div>
+                   <i class="fa fa-trash" (click)="showDeleteEstimateMarkupConfirmationModal(markup.MarkupId)"></i>
+               </div>
+            </td>
+        </tr>
+    </table>
+<pa-delete-confirmation-modal-component [innerMessage]="'Please confirm that you wish to delete \n this adjustment'" headerMessage="Are you sure?" [dialogName]="'deleteEstimatedMarkupDialog'"></pa-delete-confirmation-modal-component>
+    <div class="form-group">
+
+        <button [disabled]="loading" class="btn btn-primary btn-space"  (click)="saveMarkups()" >{{btnName}}</button>
+        <img *ngIf="loading"
+             src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="/>
+
+    </div>
+

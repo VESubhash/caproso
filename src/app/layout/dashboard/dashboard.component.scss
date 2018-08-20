@@ -1,0 +1,29 @@
+h5 {
+    color: #00b3ee;
+}
+
+.parent-nos {
+    padding-top: 19px !important;
+    padding-bottom: 19px !important;
+}
+.nopadding {
+    padding: 0 !important;
+}
+.stats-card {
+    padding: 1em;
+    box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.05);
+    border: solid 0.8px #e4e4e4;
+    text-align: center;
+    background-color: #ffffff;
+}
+.columns {
+    float: left;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+.large-4 {
+    margin: 10px;
+    width: 10%;
+    display: flex;
+    justify-content: center;
+}

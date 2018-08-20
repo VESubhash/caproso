@@ -1,0 +1,17 @@
+<div class="container">
+  <div class="golfball-container">
+    <div *ngFor="let item of golfBalls; let i = index;" [style.width]="setItemWidth()">
+      <div *ngIf="hasBalls(i)" class="spacer" [class.incomplete]="isIncomplete(item)">&nbsp;</div>
+      <div class="item" [class.incomplete]="isIncomplete(item)">
+        <div class="golfball" [class.current]="item.current">
+          <div *ngIf="item.complete"><i class="fa fa-check check" aria-hidden="true"></i></div>
+          <div *ngIf="!item.complete">{{item.stage}}</div>
+        </div>
+        <div class="label" [class.label-current]="item.current">
+          {{item.label}}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

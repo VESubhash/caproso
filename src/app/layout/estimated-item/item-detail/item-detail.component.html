@@ -1,0 +1,146 @@
+<pa-modal #modal dialogName="{{dialogName}}" [hideHeaderAndFooter]="true" (modalClosed)="modal.resolve()"
+          [modalDesign]="'full-modal'" [modalBodyCss]="'modal-full-body'" >
+    <div class="modal-overlay"></div>
+
+    <div content class="{{modal}}">
+        <h5>Item Detail</h5>
+        <hr>
+        <form [formGroup]="itemDetailForm" (ngSubmit)="onSubmit(itemDetailForm.value)">
+                <div>
+                    <ng-container>
+
+                        <table class="table item-table table-bordered display table-body">
+                            <tr class="even">
+                                <td class="text-width ">Item Code:</td>
+                                <td> {{item.ItemCode}}</td>
+                            </tr>
+                            <tr class="odd ">
+                                <td>Item Name</td>
+                                <td><input class="form-control" formControlName='AdjustedItemName'
+                                           [(ngModel)]="item.AdjustedItemName" class="form-control"
+                                           [ngClass]="{ 'is-invalid': submitted && f.AdjustedItemName.errors }"/>
+                                    <div *ngIf="submitted && f.AdjustedItemName.errors" class="invalid-feedback">
+                                        <div *ngIf="f.AdjustedItemName.errors.required">Item Description is required
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="even">
+                                <td>Category Name</td>
+                                <td> {{item.Category}}</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>Sub Category Name</td>
+                                <td>{{item.SubCategory}}</td>
+                            </tr>
+                            <tr class="even">
+                                <td>Unit</td>
+                                <td>{{item.Unit}}</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>Notes / Source Data</td>
+                                <td> {{item.Remarks}}</td>
+                            </tr>
+
+                            <tr class="odd">
+                                <td>Cost Break Down</td>
+                                <td>
+                                   {{costBreakDown}}
+                                    <div *ngIf="costBreakDown=='disabled'">
+                                        <select class="form-control" formControlName='CostBreakDownId' [(ngModel)]="item.CostBreakDownId" class="form-control"
+                                                [ngClass]="{ 'is-invalid': submitted && f.CostBreakDownId.errors }" disabled="costBreakDown">
+                                            <option value="">Please select</option>
+                                            <option *ngFor="let cbdItem of costBreakDownItemModel"
+                                                    [ngValue]="cbdItem.CostBreakDownId">
+                                                {{cbdItem.CostBreakDownName}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div *ngIf="costBreakDown === ''">
+                                        <select class="form-control" formControlName='CostBreakDownId' [(ngModel)]="item.CostBreakDownId" class="form-control"
+                                                [ngClass]="{ 'is-invalid': submitted && f.CostBreakDownId.errors }">
+                                            <option value="">Please select</option>
+                                            <option *ngFor="let cbdItem of costBreakDownItemModel"
+                                                    [ngValue]="cbdItem.CostBreakDownId">
+                                                {{cbdItem.CostBreakDownName}}
+                                            </option>
+                                        </select>
+                                    </div>
+
+                                    <div *ngIf="submitted && f.CostBreakDownId.errors" class="invalid-feedback">
+                                        <div *ngIf="f.CostBreakDownId.errors">Cost Break Down Item is
+                                            required
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                          <tr>
+                              <td>Unit Cost</td>
+                              <td> <label class="form-control label-disabled"> {{ item.UnitPrice |
+                                  currency:'USD':true:'1.2-2'}} </label></td>
+                          </tr>
+                            <tr>
+                                <td> Adjustment Amount</td>
+                                <td> <label *ngFor="let adjustmentType of adjustmentTypeModel">
+                                    <input type="radio" formControlName='AdjustmentType' [ngModel]="item.AdjustmentType"
+                                           [checked]="adjustmentType.AdjustmentType=='%'"
+                                           [value]="adjustmentType.AdjustmentType" (change)="onAdjustmentTypeChange()">
+                                    {{adjustmentType.AdjustmentType}}
+                                </label>
+                                    <input class="form-control" formControlName='AdjustmentValue' [(ngModel)]="item.AdjustmentValue"
+                                           class="form-control" (change)="onAmountChange()"
+                                           [ngClass]="{ 'is-invalid': submitted && f.AdjustmentValue.errors }"/>
+
+                                    <div *ngIf="submitted && f.AdjustmentValue.errors" class="invalid-feedback">
+                                        <div *ngIf="f.AdjustmentValue.errors">Invalid price</div>
+                                    </div></td>
+                            </tr>
+                            <tr>
+                                <td>Adjustment Unit Cost</td>
+                                <td><label class="form-control label-disabled "> {{ item.AdjustedUnitCost |
+                                    currency:'USD':true:'1.2-2'}} </label></td>
+                            </tr>
+                            <tr>
+                                <td>Quantity</td>
+                                <td> <input class="form-control" formControlName='Qty' maxlength="6"  [(ngModel)]="item.Qty"  class="form-control"
+                                            [ngClass]="{ 'is-invalid': submitted && f.Qty.errors }" (change)="onQtyChange()"/>
+
+                                    <div *ngIf="submitted && f.Qty.errors" class="invalid-feedback">
+                                        <div *ngIf="f.Qty.errors.required">Quantity is required</div>
+                                        <div *ngIf="!f.Qty.errors.required && f.Qty.errors">Invalid Quantity</div>
+                                    </div></td>
+                            </tr>
+                            <tr>
+                                <td>Total Cost</td>
+                                <td> <label class="form-control label-disabled "> {{ item.TotalCost |
+                                    currency:'USD':true:'1.2-2'}} </label></td>
+                            </tr>
+                            <tr>
+                                <td> Adjustment Note</td>
+                                <td> <textarea class="form-control" formControlName='Remarks' [(ngModel)]="item.Remarks"  class="form-control"
+                                               [ngClass]="{ 'is-invalid': submitted && f.Remarks.errors }"></textarea>
+                                    <div *ngIf="submitted && f.Remarks.errors" class="invalid-feedback">
+                                        <div *ngIf="!f.Remarks.errors.required && f.Remarks.errors">Note should not be more then 500
+                                            character long
+                                        </div>
+                                    </div></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" class="text-center">
+                                    <div class="form-group">
+                                        <button [disabled]="loading" class="btn btn-primary"><div *ngIf="item.EstimateItemId > 0">Update </div> <div *ngIf="item.EstimateItemId == 0">Add </div></button>
+                                        <img *ngIf="loading"
+                                             src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="/>
+                                        <a (click)="gotoEstimateItem()" class="btn btn-link">Cancel</a>
+                                    </div>
+                                </td>
+
+                            </tr>
+                        </table>
+                    </ng-container>
+                </div>
+
+        </form>
+
+    </div>
+</pa-modal>

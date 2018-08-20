@@ -1,0 +1,58 @@
+<div class="col-lg-12">
+<div class="row">
+    <div class="col-lg-12">
+        <h3 class="one">Manage Client </h3>
+    </div>
+</div>
+<div>
+    <div class="card-body table-responsive">
+            <div class="row mb-1" *ngIf="isCaprosoAdmin">
+                <div class="col-md-2"><label> Select Affiliates:</label></div>
+                <div class="col-md-4">
+                        <select class="form-control" class="form-control" [(ngModel)]="affiliateId" (change)="onChange($event.target.value)">
+                            <option value="0">All</option>
+                            <option *ngFor="let affiliate of affiliateModel" [(value)]="affiliate.AffiliateId" [selected]="affiliate.AffiliateId == affiliateId">{{affiliate.AffiliateName}}</option>
+                        </select>
+                </div>
+                <div class="col-md-6"><button class="btn btn-primary float-right" (click)="addOrganization()" >Add Client</button></div>
+            </div>
+            <div class="col-md-12" *ngIf="!isCaprosoAdmin">
+                <button class="btn btn-primary float-right mb-1" (click)="addOrganization()" >Add Client</button>
+            </div>
+        <table datatable [dtOptions]="dtOptions"  class="table table-bordered user-table display">
+            <thead>
+            <tr>
+                <th *ngIf="isCaprosoAdmin">Affiliate Name</th>
+                <th>Client Name</th>
+                <th>User Name</th>
+                <th>First name</th>
+                <th>Last name</th>
+                <th>Created Date</th>
+                <th>Active</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let organization of organizations; let odd=odd; let even=even" [ngClass]="{ odd: odd, even:even}">
+                <td *ngIf="isCaprosoAdmin">{{ organization.AffiliateName }}</td>
+                <td>{{ organization.OrganizationName }}</td>
+                <td>{{ organization.UserName }}</td>
+                <td>{{ organization.FirstName }}</td>
+                <td>{{ organization.LastName }}</td>
+                <td>{{ organization.CreatedDate | date:'MM/dd/yyyy hh:mm:ss' }}</td>
+                <td>
+                    <button (click)="onStatusChange(organization,organization.IsActive)" class="dropbtn"
+                            [ngClass]="{'bg-success': organization.IsActive.toString().toLowerCase() === 'true', 'bg-danger': organization.IsActive.toString().toLowerCase() === 'false' }">
+                        {{organization.IsActive.toString().toLowerCase() === 'true'? 'Active': 'InActive'}}
+                    </button>
+                </td>
+                <td><button class="btn-space" (click)="goToOrganizationDetails(organization.UserId, organization.OrganizationId, organization.OrganizationName)"> <i class="fa fa-pencil"></i></button> <button btn-space><i class="fa fa-trash"></i> </button> </td>
+            </tr>
+            <tr *ngIf="users?.length == 0">
+                <td colspan="3" class="no-data-available">No data!</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</div>

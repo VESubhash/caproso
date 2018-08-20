@@ -1,0 +1,79 @@
+<h5>Cost Break Down</h5>
+<hr>
+<estimate-data></estimate-data>
+<hr>
+
+<div>
+    <form [formGroup]="estimatecbdForm" (ngSubmit)="onSubmit(estimatecbdForm.value)">
+        <div class="row with-margin">
+            <div class="col-md-2">
+                <label> Break Down Heading</label>
+            </div>
+            <div class="col-md-2">
+                <input class="form-control" formControlName='CbdTitle'
+                       [ngClass]="{ 'is-invalid': submitted && f.CbdTitle.errors }"/>
+                <div *ngIf="submitted && f.CbdTitle.errors" class="invalid-feedback">
+                    <div *ngIf="f.CbdTitle.errors.required">Break Down Heading is required</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row with-margin">
+            <div class="col-md-2">
+                <label> Break Down Item</label>
+            </div>
+            <div class="col-md-2">
+                <input class="form-control" formControlName='CostBreakDownName'
+                       [ngClass]="{ 'is-invalid': submitted && f.CostBreakDownName.errors }"/>
+                <div *ngIf="submitted && f.CostBreakDownName.errors" class="invalid-feedback">
+                    <div *ngIf="f.CostBreakDownName.errors.required">Break Down item is required</div>
+                </div>
+            </div>
+            <div>
+                <button [disabled]="loading" class="btn btn-primary  btn-space">{{btnName}}</button>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-striped table-bordered user-table">
+                    <thead>
+                    <tr>
+                        <th>Sl no.</th>
+                        <th>Break Down Item</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <ng-container>
+                        <tr *ngFor="let costBreakDown of costbreakdowns"
+                            [ngClass]="{ odd: odd, even:even}">
+                            <td>{{ costBreakDown.SlNo }}</td>
+                            <td>
+                                {{costBreakDown.CostBreakDownName}}
+                            </td>
+                            <td class="action-btn">
+                                <i class="fa fa-pencil" (click)="editCostBreakDown(costBreakDown)"></i>
+                              <i class="fa fa-trash" (click)="showDeleteCostBreakDownConfirmationModal(costBreakDown)"></i>
+
+                            </td>
+                        </tr>
+
+                        <tr *ngIf="users?.length == 0">
+                            <td colspan="3" class="no-data-available">No data!</td>
+                        </tr>
+                    </ng-container>
+                    </tbody>
+                </table>
+
+            </div>
+
+
+        </div>
+    </form>
+
+</div>
+
+<pa-delete-confirmation-modal-component
+    [innerMessage]="'Please confirm that you wish to delete \n this cost break down no..'" headerMessage="Are you sure?"
+    [dialogName]="'deleteObservationDialog'"></pa-delete-confirmation-modal-component>

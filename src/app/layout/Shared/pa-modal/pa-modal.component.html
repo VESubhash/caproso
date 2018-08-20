@@ -1,0 +1,25 @@
+<div *ngIf="isShown">
+  <div class="modal-overlay"></div>
+  <div class="{{modalDesign}}">
+    <div class="modal-header" [hidden]="hideHeaderAndFooter">
+
+    <span class="title">
+      {{titleText}}
+    </span>
+  <!--<div *ngIf="widePillTextTitle && widePillTextTitle.length > 0" class="wide-pill-margin">-->
+    <!--<pa-wide-pill [class]="class"   [textTitle]="widePillTextTitle" [subTitle]="widePillSubTitle" [iconClass]="widePillIconClass"></pa-wide-pill>-->
+  <!--</div>-->
+
+  <span class="cross fa fa-times" [id]="titleText + ' modal close'" (click)="closeModal()"></span>
+
+
+      <div class="clear"></div>
+    </div>
+    <div class="{{modalBodyCss}}">
+      <ng-content select="[content]"></ng-content>
+    </div>
+    <div class="modal-footer" [hidden]="hideHeaderAndFooter">
+      <ng-content select="[footer]"></ng-content>
+    </div>
+  </div>
+</div>

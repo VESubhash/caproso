@@ -1,0 +1,57 @@
+<div class="loginPage">
+<div class="container-fluid login-section">
+    <div class="loginBox">
+        <div class="logoIcon"><img src="assets/images/login-icon.png" alt=""></div>
+        <div class="loginInner mx-auto py-5 ">
+            <div class="col-md-12">
+                <div class="heading pt-5">
+                    <h2>Caproso <span>Log In</span></h2>
+                    <p>Capital Program Solutions</p>
+                </div>
+
+                <form class="loginForm" [formGroup]="form" (ngSubmit)="onLoggedin(form.value)">
+                    <div class="alert" *ngIf="ui.loading" [ngClass]="ui.css">
+                    <strong>{{ui.text}}</strong>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="intSec user">
+                                    <input type="text" id="UserName" class="form-control int" placeholder="Username" formControlName="UserName">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="intSec pass">
+                                    <input type="password" id="PassWord" class="form-control int" placeholder="Enter password" formControlName="PassWord">
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="form-group form-check">
+                        <div class="row">
+                            <div class="col-md-6 col-sm-6 col-xs-6 col-6">
+                                <label class="form-check-label remember">
+                                    <input class="form-check-input" type="checkbox" name="remember"> Remember me
+                                </label>
+                            </div>
+                            <div class="col-md-6 col-sm-6 col-xs-6 col-6 forgotPass">
+                                <a href="#">Forgot Password?</a>
+                            </div>
+                        </div>
+                    </div>
+                        <button type="submit" class="btn btn-primary loginButt" [disabled]="!form.valid">
+                        Login</button>
+                </form>
+            </div>
+        </div>
+        <div class="createNew py-5">
+            <a href="#">Create new account <i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>
+        </div>
+    </div>
+</div>
+</div>

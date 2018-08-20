@@ -1,0 +1,18 @@
+<pa-modal #modal dialogName="{{dialogName}}" [hideHeaderAndFooter]="true" (modalClosed)="modal.resolve()">
+  <div class="modal-overlay"></div>
+  <div content class="modal-content">
+      <div class="alert-text">
+          <!--<div class="icon"><i class="fa fa-trash-o" aria-hidden="true"></i></div>-->
+        <div class="header-message">{{headerMessage}}</div>
+          <br/>
+        <div class="inner-message">{{innerMessage}}</div>
+      </div>
+
+      <div class="buttons">
+        <pa-button-primary id="delete-observation-delete-button" (click)="onDeleteButton()" class="deleteButton">Yes</pa-button-primary >
+
+        <button (click)= "onCancelButton()" id="delete-observation-cancel-button" class="cancel-button">No</button>
+
+      </div>
+  </div>
+</pa-modal>

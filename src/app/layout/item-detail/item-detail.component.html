@@ -1,0 +1,91 @@
+
+<h2>Item Detail</h2>
+<!--<button class="btn btn-primary btn-space" (click)="goToDocuments()"  *ngIf="itemId > 0 ">Documents</button>-->
+<button  (click)="gotoManageItem();" class="btn btn-secondary btn-space float-right">Back</button>
+<br/>
+<hr>
+
+<form [formGroup]="itemForm" (ngSubmit)="onSubmit(itemForm.value)">
+<div class="row">
+    <div class="col-md-12">
+        <div class="form-group">
+            <label> Item Code</label>
+            <input class="form-control" formControlName='ItemCode' class="form-control"
+                   [ngClass]="{ 'is-invalid': submitted && f.ItemCode.errors }"/>
+
+            <div *ngIf="submitted && f.ItemCode.errors" class="invalid-feedback">
+                <div *ngIf="f.ItemCode.errors.required">Item code is required</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label> Item Description</label>
+            <input class="form-control" formControlName='ItemDescr' class="form-control"
+                   [ngClass]="{ 'is-invalid': submitted && f.ItemDescr.errors }"/>
+
+            <div *ngIf="submitted && f.ItemDescr.errors" class="invalid-feedback">
+                <div *ngIf="f.ItemDescr.errors.required">Item Name is required</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label> Category</label>
+            <select class="form-control" formControlName='LCategoryId'   class="form-control" (change)="onCategoryChange($event.target.value)"
+                    [ngClass]="{ 'is-invalid': submitted && f.LCategoryId.errors }">
+                <option value="">Please select</option>
+                <option *ngFor="let category of categoryModel" [(value)]="category.LTagId" >{{category.TagDescr}}</option>
+            </select>
+            <div *ngIf="submitted && f.LCategoryId.errors" class="invalid-feedback">
+                <div *ngIf="f.LCategoryId.errors.required">Category is required</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label> Sub Category name</label>
+            <select class="form-control" formControlName='LSubCategoryId' [(ngModel)]="LSubCategoryId" class="form-control"
+                    [ngClass]="{ 'is-invalid': submitted && f.LSubCategoryId.errors }" >
+                <option value="">Please select</option>
+                <option *ngFor="let subcategory of subCategoryModel"  [(value)]="subcategory.LTagId">{{subcategory.TagDescr}}</option>
+            </select>
+            <div *ngIf="submitted && f.LSubCategoryId.errors" class="invalid-feedback">
+                <div *ngIf="f.LSubCategoryId.errors.required">Sub Category is required</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label> Unit</label>
+            <select class="form-control" formControlName='LUnitId' class="form-control"
+                    [ngClass]="{ 'is-invalid': submitted && f.LUnitId.errors }">
+                <option value="">Please select</option>
+                <option *ngFor="let unit of unitModel" [ngValue]="unit.LTagId">{{unit.TagDescr}}</option>
+            </select>
+            <div *ngIf="submitted && f.LUnitId.errors" class="invalid-feedback">
+                <div *ngIf="f.LUnitId.errors.required">Unit is required</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label> Unit Price</label>
+            <input class="form-control"  formControlName='UnitPrice' class="form-control" currencyMask [options]="{ align:'left' }"
+                   [ngClass]="{ 'is-invalid': submitted && f.UnitPrice.errors }"/>
+
+            <div *ngIf="submitted && f.UnitPrice.errors" class="invalid-feedback">
+                <div *ngIf="f.UnitPrice.errors.required">Price is required</div>
+                <div *ngIf="f.UnitPrice.errors">Invalid price</div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label> Note/Source Data</label>
+            <input class="form-control" formControlName='Note' class="form-control"
+                   [ngClass]="{ 'is-invalid': submitted && f.Note.errors }"/>
+
+            <div *ngIf="submitted && f.Note.errors" class="invalid-feedback">
+                <div *ngIf="f.Note.errors.required">Note is required</div>
+            </div>
+        </div>
+    </div>
+
+</div>
+    <div class="form-group">
+        <button [disabled]="loading" class="btn btn-primary">{{btnName}}</button>
+        <img *ngIf="loading"
+             src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="/>
+        <a onclick="window.history.back();" class="btn btn-link">Cancel</a>
+    </div>
+</form>

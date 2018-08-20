@@ -1,0 +1,73 @@
+<pa-modal #modal dialogName="{{dialogName}}" [hideHeaderAndFooter]="true" (modalClosed)="modal.resolve()"
+          [modalDesign]="'full-modal'">
+    <div class="modal-overlay"></div>
+
+    <div content class="{{modal}}">
+        <div *ngIf="estimateMarkupsModel.MarkupId > 0"> <h5>Edit {{markupName}}</h5></div>
+        <div *ngIf="estimateMarkupsModel.MarkupId == 0"> <h5>Add {{markupName}}</h5></div>
+
+        <hr>
+        <form [formGroup]="itemMarkupDetailForm" (ngSubmit)="onSubmit(itemMarkupDetailForm.value)">
+            <div class="col-md-12">
+                <ng-container>
+                    <div class="form-group">
+                        <label > <div *ngIf="markupName ==='Other Construction'"> Item Total</div><div *ngIf="markupName !=='Other Construction'"> Subtotal Construction</div></label>
+                        <label  class="form-control label-disabled "> {{estimateMarkupsModel.MarkupTotal | currency:'USD':true:'1.2-2'}}</label>
+                    </div>
+                    <div class="form-group">
+                        <label> {{markupName}} Name </label>
+                        <input class="form-control" formControlName='MarkupName' class="form-control" [(ngModel)]="estimateMarkupsModel.MarkupName"
+                               [ngClass]="{ 'is-invalid': submitted && f.MarkupName.errors }"/>
+
+                        <div *ngIf="submitted && f.MarkupName.errors" class="invalid-feedback">
+                            <div *ngIf="f.MarkupName.errors.required">Name is required</div>
+                        </div>
+
+                    </div>
+                    <div  class="form-group">
+                        <label> {{markupName}} Type </label>
+                        <label *ngFor="let adjustmentType of adjustmentTypeModel">
+                            <input type="radio" formControlName='AdjustmentType'
+                                   [checked]="estimateMarkupsModel.AdjustmentType == adjustmentType.AdjustmentType"
+                                   [value]="adjustmentType.AdjustmentType" (change)="onAdjustmentTypeChange()">
+                            {{adjustmentType.AdjustmentType}}
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label> {{markupName}} Value </label>
+                        <div *ngIf="estimateMarkupsModel.AdjustmentType =='%'">
+                            <input class="form-control" formControlName='AdjustmentValue' class="form-control"   [(ngModel)]="estimateMarkupsModel.AdjustmentValue" (change)="onAmountChange()"
+                                   [ngClass]="{ 'is-invalid': submitted && f.AdjustmentValue.errors }"/>
+                        </div>
+                        <div *ngIf="estimateMarkupsModel.AdjustmentType =='$'">
+                            <input class="form-control" formControlName='AdjustmentValue' class="form-control" currencyMask [options]="{ align:'left' }"   [(ngModel)]="estimateMarkupsModel.AdjustmentValue" (blur)="onAmountChange()"
+                                   [ngClass]="{ 'is-invalid': submitted && f.AdjustmentValue.errors }"/>
+                        </div>
+
+
+                        <div *ngIf="submitted && f.AdjustmentValue.errors" class="invalid-feedback">
+                            <div *ngIf="f.AdjustmentValue.errors.required">Value is required</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label> Total Cost </label>
+                        <label  class="form-control label-disabled "  > {{estimateMarkupsModel.AdjustmentTotal | currency:'USD':true:'1.2-2'}}</label>
+                        <!--<input class="form-control" formControlName='TotalCost' class="form-control"-->
+                               <!--[ngClass]="{ 'is-invalid': submitted && f.TotalCost.errors }"/>-->
+
+                        <!--<div *ngIf="submitted && f.TotalCost.errors" class="invalid-feedback">-->
+                            <!--<div *ngIf="f.TotalCost.errors.required">Total Cost is required</div>-->
+                        <!--</div>-->
+                    </div>
+                    <div class="form-group">
+                        <button [disabled]="loading" class="btn btn-primary" ><span *ngIf="estimateMarkupsModel.MarkupId > 0">Update</span><span *ngIf="estimateMarkupsModel.MarkupId == 0">Add</span> </button>
+                        <img *ngIf="loading"
+                             src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="/>
+                        <a (click)="gotoEstimateMarkup()" class="btn btn-link">Cancel</a>
+                    </div>
+                </ng-container>
+            </div>
+        </form>
+    </div>
+</pa-modal>

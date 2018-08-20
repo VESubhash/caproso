@@ -1,0 +1,68 @@
+@import "../../../../styles/colours";
+
+.checkbox{
+  line-height: 20px;
+  color: $grey-purple;
+}
+.checkbox label {
+  display: inline-block;
+  position: relative;
+  padding-left: 5px;
+  font-size: 14px;
+  cursor: pointer;
+}
+.checkbox label::before {
+  content: "";
+  display: inline-block;
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  left: 0;
+  margin-left: -20px;
+  border-radius: 4px;
+  background-color: $light-blue;
+  -webkit-transition: border 0.15s ease-in-out, color 0.15s ease-in-out;
+  -o-transition: border 0.15s ease-in-out, color 0.15s ease-in-out;
+  transition: border 0.15s ease-in-out, color 0.15s ease-in-out;
+}
+.checkbox label::after {
+  display: inline-block;
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  left: 0;
+  top: 0;
+  margin-left: -20px;
+  padding-left: 3px;
+  font-size: 14px;
+}
+.checkbox input[type="checkbox"] {
+  opacity: 0;
+}
+.checkbox input[type="checkbox"]:focus + label::before {
+  outline: none;
+  outline-offset: -2px;
+}
+.checkbox input[type="checkbox"]:checked + label::after {
+  font-family: 'FontAwesome', serif;
+  content: "\f00c";
+  padding-right:2px;
+}
+.checkbox input[type="checkbox"]:disabled + label {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+.checkbox.checkbox-circle label::before {
+  border-radius: 50%;
+}
+.checkbox.checkbox-inline {
+  margin-top: 0;
+}
+
+.checkbox input[type="checkbox"]:checked + label::before {
+  background-color: $light-blue;
+  border-color: $light-blue;
+}
+.checkbox input[type="checkbox"]:checked + label::after {
+  color: #fff;
+}

@@ -1,0 +1,68 @@
+
+
+.container {
+  width: 100%;
+}
+
+.golfball-container {
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+.item {
+  width: 100%;
+  text-align: center;
+  color: #6f42c1;
+  font-size: 14px;
+}
+
+.check {
+  font-size: 18px;
+}
+
+.golfball {
+  height: 40px;
+  width: 40px;
+  line-height: 42px;
+  border-radius: 50%;
+  border: 2px solid #6f42c1;
+  color: #6f42c1;
+  margin: auto;
+}
+
+.current {
+  background: #6f42c1;
+  color: white;
+}
+
+.incomplete {
+  opacity: 0.4;
+}
+
+.spacer {
+  float: left;
+  width: calc(100% - 42px);
+  height: 2px;
+  border: none;
+  background: #6f42c1;
+  margin-top: 20px;
+  margin-right: calc((50%) * -1);
+  position: relative;
+  left: calc((50% - 21px) * -1);
+}
+
+.label {
+  width: 100%;
+  padding-top: 15px;
+  font-size: 12px;
+}
+
+.label-current {
+  font-weight: bold;
+}
+
+@media (max-width: 480px) {
+  .label {
+    display: none;
+  }
+}

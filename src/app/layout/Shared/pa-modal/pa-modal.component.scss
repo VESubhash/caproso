@@ -1,0 +1,134 @@
+@import "../../../../styles/colours";
+@import "../../../../styles/variables";
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: $eggplant;
+  opacity: 0.7;
+  z-index: 998;
+}
+.modal{
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  min-height: 100px;
+  max-width: 24%;
+  transform: translate(-50%, -50%);
+  margin: auto;
+  border-radius: 10px;
+  background-color: #ffffff;
+  z-index: 999;
+  display: inline-block;
+    height: 390px;
+}
+
+.full-modal{
+    padding: 10px;
+    position: fixed;
+    top: 50%;
+    left: 40%;
+    min-height: 100px;
+    width: 65%;
+    transform: translate(-25%, -50%);
+    margin: auto;
+    border-radius: 10px;
+    background-color: $white;
+    z-index: 999;
+    display: inline-block;
+    max-height: 514px
+
+}
+
+.modal-header{
+  border-bottom: solid 1px $pale-grey-two;
+}
+
+.title{
+  font-size: 30px;
+  font-weight: 300;
+  height: 82px;
+  line-height: 82px;
+  text-align: left;
+  color: $modal-title;
+  margin-left: 30px;
+  float: left;
+}
+
+.cross {
+  font-size: 24px;
+  color: $heather-two;
+  cursor: pointer;
+  float:right;
+  margin-right: 30px;
+  line-height: 82px;
+}
+.modal-body {
+  color: $modal-body;
+    height: 90%;
+  &[hidden = false] {
+    border-bottom: solid 1px $pale-grey-two;
+  }
+}
+
+.modal-full-body {
+    color: $modal-body;
+    height: 450px;
+    overflow-y: scroll;
+}
+
+.modal-footer{
+  padding-left: 30px;
+  padding-right: 30px;
+  height: 106px;
+  line-height: 106px;
+  display: block;
+  width: calc(100% - 30px - 30px);
+  border-top: solid 1px #dcd0e2;
+
+  &[hidden] {
+    display: none;
+  }
+}
+.wide-pill-margin {
+  width: 81%;
+  float: left;
+  margin-top: 20px;
+  margin-left: 10px;
+}
+.clear{
+  clear: both;
+}
+
+@media only screen and (min-width: 320px) and (max-width:767px)   {
+  .title {
+    font-size: 20px;
+    height: 40px;
+    line-height: 40px;
+    margin-left: 10px;
+  }
+  .wide-pill-margin {
+    margin-top: 10px;
+    width: 40px;
+  }
+  .modal {
+    max-width: 98%;
+  }
+
+  .wide-pill-margin {
+    margin-top: 0px;
+    width: 96%;
+    margin-bottom: 10px;
+  }
+
+  .cross {
+  font-size: 20px;
+    line-height: 40px;
+    margin-right: 10px;
+    position: absolute;
+    right: 0;
+  }
+}

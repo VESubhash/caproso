@@ -1,0 +1,79 @@
+<h5> Billing Address</h5>
+<hr>
+
+<ng-container [formGroup]="group.control.get(groupName)">
+    <div class="row" >
+        <div class="col-md-6">
+            <div class="form-group">
+                <label> Address 1</label>
+                <input class="form-control" formControlName='Address1' class="form-control" [ngClass]="{ 'is-invalid': submitted && group.control.get(groupName+'.Address1').errors }"/>
+
+                <div *ngIf="group.control.get(groupName+'.Address1').errors" class="invalid-feedback">
+                    <div *ngIf="group.control.get(groupName+'.Address1').hasError('required')">Address 1 is required</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label> Address 2</label>
+                <input class="form-control" formControlName='Address2' class="form-control"
+                       [ngClass]="{ 'is-invalid':  submitted && group.control.get(groupName+'.Address2').errors }"/>
+
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label> Country</label>
+                <select class="form-control" formControlName='CountryId' class="form-control" [attr.disabled]="true"
+                        [ngClass]="{ 'is-invalid': submitted && group.control.get(groupName+'.CountryId').errors  }">
+                    <option value="">Please select</option>
+                    <option *ngFor="let country of countriesModel" [value]="country.LTagId"
+                            [attr.selected]="country.TagDescr === 'United States' ? true : null">{{country.TagDescr}}
+                    </option>
+
+                </select>
+                <div *ngIf="submitted && group.control.get(groupName+'.CountryId').errors" class="invalid-feedback">
+                    <div *ngIf="group.control.get(groupName+'.CountryId').hasError('required')">Country is required</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label> State</label>
+                <select class="form-control" formControlName='StateId' class="form-control"
+                        [ngClass]="{ 'is-invalid': submitted && group.control.get(groupName+'.StateId').errors  }">
+                    <option value="">Please select</option>
+                    <option *ngFor="let state of statesModel" [ngValue]="state.LTagId">{{state.TagDescr}}</option>
+                </select>
+                <div *ngIf="submitted && group.control.get(groupName+'.StateId').errors" class="invalid-feedback">
+                    <div *ngIf="group.control.get(groupName+'.StateId').hasError('required')">State is required</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label> City</label>
+                <input class="form-control" formControlName='City' class="form-control"
+                       [ngClass]="{ 'is-invalid': submitted && group.control.get(groupName+'.City').errors }"/>
+
+                <div *ngIf="submitted && group.control.get(groupName+'.City').errors" class="invalid-feedback">
+                    <div *ngIf="group.control.get(groupName+'.City').hasError('required')">City is required</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label> Postal code</label>
+                <input class="form-control" formControlName='PostalCode' class="form-control"
+                       [ngClass]="{ 'is-invalid': submitted && group.control.get(groupName+'.PostalCode').errors }"/>
+
+                <div *ngIf="submitted && group.control.get(groupName+'.PostalCode').errors" class="invalid-feedback">
+                    <div *ngIf="group.control.get(groupName+'.PostalCode').hasError('required')">Postal code is required</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-container>
+
+
+

@@ -1,0 +1,15 @@
+@import "../../../../styles/colours";
+
+.primary-button {
+  height: 46px;
+  color: $button-primary-text;
+  border-radius: 23px;
+  background-color: $button-primary;
+  font-size: 18px;
+  min-width: unset;
+    cursor: pointer;
+}
+.mat-button {
+  min-width: 120px;
+}
+

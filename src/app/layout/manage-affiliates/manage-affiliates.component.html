@@ -1,0 +1,72 @@
+<div class="col-md-12">
+    <h3 class="one">Manage Affiliate</h3>
+    <button class="btn btn-primary float-right" (click)="addAffiliate()">Add Affiliate</button>
+    <div class="card-body table-responsive">
+        <table datatable [dtOptions]="dtOptions" class="table table-bordered user-table display">
+            <thead>
+            <tr>
+                <th>Affiliate Name</th>
+                <th>User Name</th>
+                <th>First name</th>
+                <th>Last name</th>
+                <th>Created Date</th>
+                <th>Active</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let affiliate of affiliates; let odd=odd; let even=even" [ngClass]="{ odd: odd, even:even}">
+
+                <td>{{ affiliate.AffiliateName }}</td>
+                <td>{{ affiliate.UserName }}</td>
+                <td>{{ affiliate.FirstName }}</td>
+                <td>{{ affiliate.LastName }}</td>
+                <td>{{ affiliate.CreatedDate | date:'MM/dd/yyyy hh:mm:ss' }}</td>
+
+                <!--<td>-->
+                    <!--<div class="wrapper">-->
+                        <!--<div>-->
+                            <!--<div class="dropdown">-->
+                                <!--<button class="dropbtn"-->
+                                        <!--[ngClass]="{'bg-success': affiliate.IsActive.toString().toLowerCase() === 'true', 'bg-danger': affiliate.IsActive.toString().toLowerCase() === 'false' }">-->
+                                    <!--{{affiliate.IsActive.toString().toLowerCase() === 'true'? 'Active': 'InActive'}}-->
+                                <!--</button>-->
+                                <!--<div class="dropdown-content">-->
+                                    <!--<a (click)="onStatusChange(affiliate,false)">Active</a>-->
+                                    <!--<a (click)="onStatusChange(affiliate,true)">InActive</a>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                            <!--<div style="display: none"> {{affiliate.IsActive.toString().toLowerCase()}}</div>-->
+                        <!--</div>-->
+                        <!--<div  class="button" *ngIf="editActive" >-->
+                            <!--{{affiliate.IsActive.toString().toLowerCase()}}-->
+                            <!--<select [(ngModel)]="affiliate.IsActive">-->
+                            <!--<option *ngFor="let active of activeModel" [(value)]="active.value">{{active.name}}</option>-->
+                            <!--</select>-->
+                        <!--</div>-->
+                    <!--</div>-->
+
+                <!--</td>-->
+                <td>
+                    <button (click)="onStatusChange(affiliate,affiliate.IsActive)" class="dropbtn"
+                            [ngClass]="{'bg-success': affiliate.IsActive.toString().toLowerCase() === 'true', 'bg-danger': affiliate.IsActive.toString().toLowerCase() === 'false' }">
+                        {{affiliate.IsActive.toString().toLowerCase() === 'true'? 'Active': 'InActive'}}
+                    </button>
+                </td>
+                <td>
+                    <button class="btn-space"
+                            (click)="goToAffiliateDetail(affiliate.UserId, affiliate.AffiliateId, affiliate.AffiliateName)">
+                        <i class="fa fa-pencil"></i></button>
+                    <button btn-space><i class="fa fa-trash"></i></button>
+                </td>
+
+            </tr>
+
+            <tr *ngIf="affiliate?.length == 0">
+                <td colspan="3" class="no-data-available">No data!</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+

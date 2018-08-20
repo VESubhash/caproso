@@ -1,0 +1,85 @@
+<h2>User Address</h2>
+<br/>
+<hr>
+<button  onclick="window.history.back();" class="btn btn-secondary btn-space float-right">Back</button>
+<form [formGroup]="addressForm" (ngSubmit)="onSubmit(addressForm.value)">
+<div class="row">
+    <div class="col-md-12">
+        <div class="form-group">
+            <label> Address 1</label>
+            <input class="form-control" formControlName='Address1' class="form-control"
+                   [ngClass]="{ 'is-invalid': submitted && f.Address1.errors }"/>
+
+            <div *ngIf="submitted && f.Address1.errors" class="invalid-feedback">
+                <div *ngIf="f.Address1.errors.required">Address 1 is required</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="form-group">
+            <label> Address 2</label>
+            <input class="form-control" formControlName='Address2' class="form-control"
+                   [ngClass]="{ 'is-invalid': submitted && f.Address2.errors }"/>
+
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="form-group">
+            <label> Country</label>
+            <select class="form-control" formControlName='CountryId' class="form-control" [attr.disabled]="true"
+                    [ngClass]="{ 'is-invalid': submitted && f.CountryId.errors }">
+                <option value="">Please select</option>
+                <option *ngFor="let country of countriesModel" [value]="country.LTagId"
+                        [attr.selected]="country.TagDescr === 'United States' ? true : null">{{country.TagDescr}}
+                </option>
+
+            </select>
+            <div *ngIf="submitted && f.CountryId.errors" class="invalid-feedback">
+                <div *ngIf="f.CountryId.errors.required">Country is required</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="form-group">
+            <label> State</label>
+            <select class="form-control" formControlName='StateId' class="form-control"
+                    [ngClass]="{ 'is-invalid': submitted && f.StateId.errors }">
+                <option value="">Please select</option>
+                <option *ngFor="let state of statesModel" [ngValue]="state.LTagId">{{state.TagDescr}}</option>
+            </select>
+            <div *ngIf="submitted && f.StateId.errors" class="invalid-feedback">
+                <div *ngIf="f.StateId.errors.required">State is required</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="form-group">
+            <label> City</label>
+            <input class="form-control" formControlName='City' class="form-control"
+                   [ngClass]="{ 'is-invalid': submitted && f.City.errors }"/>
+
+            <div *ngIf="submitted && f.City.errors" class="invalid-feedback">
+                <div *ngIf="f.City.errors.required">City is required</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="form-group">
+            <label> Postal code</label>
+            <input class="form-control" formControlName='PostalCode' class="form-control"
+                   [ngClass]="{ 'is-invalid': submitted && f.PostalCode.errors }"/>
+
+            <div *ngIf="submitted && f.PostalCode.errors" class="invalid-feedback">
+                <div *ngIf="f.PostalCode.errors.required">Postal code is required</div>
+            </div>
+        </div>
+    </div>
+</div>
+    <div class="form-group">
+        <input type="hidden" class="form-control" formControlName='ContactId' class="form-control" />
+        <button [disabled]="loading" class="btn btn-primary">{{btnName}}</button>
+        <img *ngIf="loading"
+             src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="/>
+        <a onclick="window.history.back();" class="btn btn-link">Cancel</a>
+    </div>
+</form>

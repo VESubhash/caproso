@@ -1,0 +1,103 @@
+body{
+    background: #f9f9f9;
+}
+h3 {
+    color: #000;
+    font-size: 24px;
+    line-height: normal;
+    font-weight: 100;
+    margin: 0px 0 20px 0;
+    padding-bottom: 14px;
+    padding-top: 15px;
+    border-bottom: 1px solid #d2d2d2;
+}
+
+.main-container{background:#f9f9f9;}
+
+
+.dataTable{
+    width: 100% !important;
+}
+.btn-space {
+    margin-right: 5px;
+}
+.dataTable th{
+    color: #fff;
+    background-color: #404040!important;
+    border-color: #656464!important;
+    line-height: 32px;
+}
+
+.table th{
+    color: #fff;
+    background-color: #404040!important;
+    border-color: #656464!important;
+    line-height: 32px;
+}
+.action-btn{
+    text-align: center;
+    font-size: 20px;
+    i{ padding: 0 15px 0 0; cursor: pointer; color: #0d587d;
+        &:hover{color: #28a745;}
+    }
+ }
+
+
+ table.dataTable.no-footer{border-bottom: 1px solid #fff; }
+.user-table tbody tr td{ color: #000!important;}
+.user-section #DataTables_Table_0_info{ color:#777!important; font-size:13px!important;}
+.dataTables_wrapper .dataTables_paginate{
+    border: 1px solid #e0dcdc;
+    padding: 0;
+    margin-top: 6px;
+}
+.dataTables_wrapper .dataTables_paginate {
+a{ border-right: 1px solid #ccc!important;}
+.paginate_button{
+    background:none;
+    padding: 0.3em 1em;
+    &:hover{
+        border-color:#fff!important;
+    background: #0d587d!important;
+    color:#fff!important;
+    }
+ }
+.paginate_button.current{
+     border: none !important;
+    background: #0d587d!important;
+    color: #fff!important;
+    border-radius: 0;
+}
+}
+
+.dataTables_wrapper .dataTables_length label{ color: #777777!important;}
+.dropbtn{
+    color: white;
+    font-size: 16px;
+    border: none;
+    border-radius: 0;
+    width: 95px;
+    margin: 0 auto
+}
+
+.Add-userbtn{
+    background: #0d587d;
+    color: #fff;
+    font-size: 16px;
+    border-radius: 0;
+    position: relative;
+
+}
+/* form style */
+.form-section h5{
+    color: #f9f9f9!important;
+    background: #404040;
+    padding: 10px;
+    font-size: 16px;
+}
+.cancel-btn{ background:#a20808; color:#fff!important;}
+.client-btn{ background:#008bff;}
+
+
+
+

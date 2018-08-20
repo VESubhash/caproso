@@ -1,0 +1,20 @@
+<div *ngIf="isShown">
+  <div class="modal-overlay"></div>
+  <div class="modal">
+    <div class="modal-header">
+    <div [ngClass]="'icon-' + iconColor">
+      <i [ngClass]="'fa fa-' + iconClass" aria-hidden="true"></i>
+    </div>
+    <div class="title">
+      {{titleText}}
+    </div>
+    <div class="clear"></div>
+    </div>
+    <div class="modal-body">
+      {{messageText}}
+    </div>
+    <div class="modal-footer">
+      <pa-button-primary (click)="closeModal()" attr.data-id="info-modal-ok-button">OK</pa-button-primary>
+    </div>
+  </div>
+</div>

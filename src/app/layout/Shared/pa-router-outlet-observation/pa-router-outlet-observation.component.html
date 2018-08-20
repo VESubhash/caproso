@@ -1,0 +1,14 @@
+    <div class="top-container">
+            <div class="child-row" *ngIf="childDetails">
+                <span class="label">Estimate Details</span>
+            </div>
+            <div class="child-row"  *ngIf="!childDetails">
+            </div>
+        <div class="observation-progress">
+            <pa-golfball-checklist [golfBalls]="golfBalls"></pa-golfball-checklist>
+        </div>
+    </div>
+    <div class="bottom-container">
+        <ng-content></ng-content>
+    </div>
+

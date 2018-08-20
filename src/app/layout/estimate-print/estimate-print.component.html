@@ -1,0 +1,101 @@
+<h5>Print</h5>
+<div>
+    Click print button print again.
+</div>
+
+
+<div id="print-section" style="display: none">
+    <div class="print-first">
+       <div  style="text-align: center"><h2>Caproso Project Cost Estimator</h2></div>
+        <estimate-data></estimate-data>
+          <table style="width: 100%">
+            <tr style="line-height: 1.5em"><td><label style="font-weight: bold;"> Project Scope:</label>{{estimateModel.ProjectScope}}</td></tr>
+              <tr style="line-height: 1.5em"><td><label style="font-weight: bold;"> Assumptions:</label>{{estimateModel.Assumptions}}</td></tr>
+          </table>
+
+
+
+
+
+<table  cellpadding="5" cellspacing="0">
+
+        <tr *ngFor="let markup of estimateMarkups; let odd=odd; let even=even" >
+            <td class="item-description" [ngClass]="{'total-project-cost': markup.MarkupName ==='Total Project Cost'}">
+                <div  class="text-right" [ngClass]="{'bold-text': markup.MarkupType ==='Single'}">
+                     <div *ngIf="markup.MarkupType !=='Single'">
+                         <div *ngIf="markup.LAdjustmentTypeId== 56498" >{{markup.MarkupName}} ($)</div>
+                         <div *ngIf="markup.LAdjustmentTypeId== 56497" >{{markup.MarkupName}} (%)</div>
+                     </div>
+                    <div *ngIf="markup.MarkupType ==='Single'">
+                        {{markup.MarkupName}}
+                    </div>
+                </div>
+                <div *ngIf="markup.MarkupType =='Fixed' || markup.MarkupType =='Other Construction' || markup.MarkupType =='Other Project Cost'" class="text-right">
+                    <div *ngFor="let adjustmentType of adjustmentTypeModel">
+                        <div *ngIf="adjustmentType.LAdjustmentTypeId == markup.LAdjustmentTypeId">
+                            {{adjustmentType.AdjustmentType}}
+                        </div>
+                    </div>
+                </div>
+
+            </td>
+            <td [ngClass]="{'total-project-cost': markup.MarkupName ==='Total Project Cost'}">
+                <div class="row col-md-12" class="text-right">
+                    <div *ngIf="markup.MarkupType !=='Single' && markup.LAdjustmentTypeId== 56498" >
+                        {{ markup.AdjustmentValue | currency:'USD':true:'1.2-2'}}
+                    </div>
+                    <div *ngIf="markup.MarkupType !=='Single' && markup.LAdjustmentTypeId== 56497" >
+                        {{ markup.AdjustmentValue}}%
+                    </div>
+
+
+                </div>
+            </td>
+            <td [ngClass]="{'total-project-cost adjustment-heading': markup.MarkupName ==='Total Project Cost', 'bold-text adjustment-heading': markup.MarkupType ==='Single'}">
+                <div *ngIf="markup.MarkupType != 'Fixed Single'" class="text-right" [ngClass]=" {'': markup.MarkupType ==='Single'}">
+                    {{ markup.AdjustmentTotal | currency:'USD':true:'1.2-2'}}
+                </div>
+            </td>
+        </tr>
+    </table>
+
+    </div>
+
+
+   <div  style="text-align: center"><h2>Caproso Project Cost Estimator</h2></div>
+    <br/>
+    <estimate-data></estimate-data>
+    <br/><br/>
+    <div class="estimated-items-area">
+        <table style="width: 100%" cellspacing="0" cellpadding="0">
+            <thead>
+            <tr class="header-section">
+                <th class="text-left">Item Description</th>
+                <th *ngIf="costBreakDown" class="text-left">{{costBreakDownHeading}}</th>
+                <th class="text-right">Quantity</th>
+                <th class="text-right">Unit</th>
+                <th class="text-right">Unit Price</th>
+                <th class="text-right"> Item Total</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let item of estimatedItems; let odd=odd; let even=even" [ngClass]="{ odd: odd, even:even}">
+                <td class="text-left">{{ item.AdjustedItemName }} - {{item.Category}} - {{item.SubCategory}} </td>
+                <td class="text-left" *ngIf="costBreakDown">{{ item.CostBreakDownName }}</td>
+                <td class="text-right">{{ item.Qty | number:'1.0' }}</td>
+                <td class="text-right">{{ item.Unit }}</td>
+                <td class="text-right">{{ item.AdjustedUnitCost | currency:'USD':'symbol-narrow':'1.2-2'}}</td>
+                <td class="text-right">{{ item.TotalCost | currency:'USD':'symbol-narrow':'1.2-2'}}</td>
+            </tr>
+
+            <tr class="total-section">
+               <td    [attr.colspan]="colSpan" class="font-weight-bold text-right"  style="font-weight: bold;"> Estimate Value: </td>
+                <td class="font-weight-bold font-size-3 text-right"  style="font-weight: bold;">{{totalCost | currency:'USD':'symbol-narrow':'1.2-2'}}</td>
+            </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+</div>
+<button (click)="print()" class="btn btn-primary">Print</button>

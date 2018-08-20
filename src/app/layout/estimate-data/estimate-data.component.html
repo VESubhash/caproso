@@ -1,0 +1,21 @@
+<table style="width: 100%">
+    <tr style="line-height: 1.5em;">
+        <td> <label style="font-weight: bold;"> Estimate Title:</label>
+            {{estimateModel.EstimateTitle}}</td>
+        <td> <label style="font-weight: bold;"> Estimate Number:</label>
+            {{estimateModel.EstimateNumber}}</td>
+    </tr>
+    <tr style="line-height: 1.5em;">
+        <td><label style="font-weight: bold;"> Estimate Date:</label>
+            {{estimateModel.CreatedDate| date:'MM/dd/yyyy'}}</td>
+        <td><label style="font-weight: bold;"> Group:</label>
+            {{estimateModel.EstimateGroupName}}</td>
+    </tr>
+    <tr style="line-height: 1.5em;">
+        <td><label style="font-weight: bold;"> Project Manager:</label>
+            {{estimateModel.ManagerName}}</td>
+        <td><label style="font-weight: bold;"> Estimator:</label>
+            {{estimateModel.Estimator}}</td>
+    </tr>
+</table>
+

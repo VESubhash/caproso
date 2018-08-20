@@ -1,0 +1,47 @@
+<div class="col-lg-12">
+    <div class="row">
+        <div class="col-lg-12">
+            <h3 class="one">Manage Items of {{organization}}</h3>
+
+        </div>
+    </div>
+    <div>
+        <button class="btn btn-primary btn-space float-right" (click)="addItems(organizationId)" >Add Items</button>
+        <div class="card-body table-responsive">
+            <table datatable [dtOptions]="dtOptions" class="table table-bordered address-table display">
+                <thead>
+                <tr>
+                    <th>Item Code</th>
+                    <th>Item Description</th>
+                    <th>Sub Category Name</th>
+                    <th>Category Name</th>
+                    <th>Unit</th>
+                    <th>Unit Price</th>
+                    <th>Active</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let item of items; let odd=odd; let even=even" [ngClass]="{ odd: odd, even:even}">
+                    <td>{{ item.ItemCode }}</td>
+                    <td>{{ item.ItemDescr }}</td>
+                    <td>{{ item.SubCategoryName }}</td>
+                    <td>{{ item.CategoryName }}</td>
+                    <td>{{ item.Unit }}</td>
+                    <td class="text-right">{{ item.UnitPrice  | currency }}</td>
+                    <td>
+                        <button (click)="onStatusChange(item, !item.IsActive)" class="dropbtn"
+                                [ngClass]="{'bg-success': item.IsActive.toString().toLowerCase() === 'true', 'bg-danger': item.IsActive.toString().toLowerCase() === 'false' }">
+                            {{item.IsActive.toString().toLowerCase() === 'true'? 'Active': 'InActive'}}
+                        </button>
+                    </td>
+                    <td><button class="btn-space"  title="edit item" (click)="goToItemDetail(item.ItemId)"> <i class="fa fa-pencil"></i></button> <button title="delete item" class="btn-space"><i class="fa fa-trash"></i> </button> </td>
+                </tr>
+                <tr *ngIf="tags?.length == 0">
+                    <td colspan="4" class="no-data-available">No data!</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,44 @@
+<div class="col-lg-12">
+        <h3 class="one">Manage units of {{organization}} <button class="btn Add-userbtn float-right" (click)="addUnit(organizationId)" >Add Unit</button></h3>
+        <div class="card-body table-responsive">
+
+            <table datatable [dtOptions]="dtOptions" class="table table-bordered address-table display">
+                <thead>
+                <tr>
+                    <th>Unit Name</th>
+                    <th>Unit Description</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let unit of units; let odd=odd; let even=even" [ngClass]="{ odd: odd, even:even}">
+                    <td>{{ unit.TagName }}</td>
+                    <td>{{ unit.TagDescr }}</td>
+                    <!--<td>-->
+
+                        <!--<div class="dropdown">-->
+                            <!--<button class="dropbtn"-->
+                                    <!--[ngClass]="{'bg-success': unit.IsActive.toString().toLowerCase() === 'true', 'bg-danger': unit.IsActive.toString().toLowerCase() === 'false' }">-->
+                                <!--{{unit.IsActive.toString().toLowerCase() === 'true'? 'Active': 'InActive'}}-->
+                            <!--</button>-->
+                            <!--<div class="dropdown-content">-->
+                                <!--<a (click)="onStatusChange(unit,true)">Active</a>-->
+                                <!--<a (click)="onStatusChange(unit,false)">InActive</a>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</td>-->
+                    <td  class="action-btn">
+                        <i class="fa fa-pencil" (click)="goToUnitDetails(unit.LTagsId, organizationId)"></i>
+                        <i class="fa fa-trash"></i>
+                    </td>
+
+                </tr>
+
+                <tr *ngIf="units?.length == 0">
+                    <td colspan="3" class="no-data-available">No data!</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+

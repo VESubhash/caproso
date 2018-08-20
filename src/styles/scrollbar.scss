@@ -1,0 +1,27 @@
+::-webkit-scrollbar {
+  width: 13px;
+  background-color: $white;
+  border: none;
+}
+
+::-webkit-scrollbar-track {
+  background-color: $white;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: $heather-two;
+}
+
+::-webkit-scrollbar-button {
+  display: inline;
+  height: 13px;
+  background-repeat: no-repeat;
+}
+
+::-webkit-scrollbar-button:start {
+  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA0AAAANCAYAAABy6+R8AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAABASURBVChTY/wPBAwkAiYoTRKgrqZV3duhLEyAVRNMAy6NGJrQFWLTiKIJl8no4nBNuDTAALL8UI0nfIAMTQwMAAQzGV284yFiAAAAAElFTkSuQmCC');
+}
+
+::-webkit-scrollbar-button:end {
+  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA0AAAANCAYAAABy6+R8AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAABISURBVChTY/wPBAwkAiYoTRIY5JrgAbGqeztYAB8IK/UE03CbYAK4ALI8ivNwaUQXx/ATugKsBoH8hA2s7NoGZWGCQZ0iGBgAqBRIOuzN/I4AAAAASUVORK5CYII=');
+}

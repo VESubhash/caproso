@@ -1,0 +1,7 @@
+<div class="checkbox">
+  <input [disabled]="disabled" (change)="onChange()" [checked]="checked"  [id]="id" type="checkbox">
+  <label [for]="id">
+    <ng-content></ng-content>
+  </label>
+</div>
+

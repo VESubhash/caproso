@@ -1,0 +1,51 @@
+
+h5 {
+    color: #00b3ee;
+}
+
+.btn-space {
+    margin-right: 5px;
+}
+
+.error{
+    color: #ff0000;
+}
+
+.bold-text{
+    font-weight: bold;
+}
+
+.adjustment-heading {
+    border-top: 1px solid;
+    font-size: 16px;
+}
+.item-description {
+    width: 95%;
+}
+
+.total-project-cost{
+    background-color:#b7b7b7;
+    font-size: 18px;
+}
+.header-section th{
+    line-height: 2.5em;
+    padding:8px;
+}
+.odd td, .even td{
+    line-height: 1.5em;
+    padding:8px;
+    border-bottom:1px solid #c5c4c4;
+}
+.odd{
+    background-color: #f5f5f5;
+}
+.even{
+    background-color: #ffffff;
+}
+@media screen and (min-width: 40em)
+{
+    br
+    {
+        display: none;   // hide the BR tag for wider screens (i.e. disable the line break)
+    }
+}
